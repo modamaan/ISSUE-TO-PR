@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: .
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      # Mount source for hot-reload in dev; remove for production
+      - .:/app
+    restart: unless-stopped
+
+  worker:
+    build: .
+    command: celery -A pipeline.celery_worker worker --loglevel=info --concurrency=4
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    # Scale workers: docker-compose up --scale worker=3
+    deploy:
+      replicas: 1
+
+  # Optional: Celery Flower dashboard for monitoring
+  flower:
+    build: .
+    command: celery -A pipeline.celery_worker flower --port=5555
+    ports:
+      - "5555:5555"
+    env_file: .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - worker
+    profiles:
+      - monitoring
