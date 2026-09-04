@@ -21,13 +21,13 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
 from agents.autofix_agent import run_autofix_agent
+from agents.build_agent import run_build_verification
 from agents.codegen import run_codegen
 from agents.dep_audit_agent import run_dep_audit_agent
 from agents.issue_analyzer import run_issue_analyzer
 from agents.pr_creator import run_pr_creator
 from agents.risk_agent import run_risk_agent
 from agents.scan_agent import run_scan_agent
-from agents.build_agent import run_build_verification
 from agents.security_agent import run_security_agent
 from pipeline.state import PipelineState
 from shared.config import settings

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from shared.verdict import Severity
 from tools.security_scanner import scan_content_regex, scan_diff_regex
 

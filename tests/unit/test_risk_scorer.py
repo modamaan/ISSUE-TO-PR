@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from shared.models import Finding, ScanResult
 from shared.verdict import Severity, Verdict
 from tools.risk_scorer import aggregate_findings_from_results, compute_risk_score

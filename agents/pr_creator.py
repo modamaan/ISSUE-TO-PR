@@ -166,7 +166,6 @@ def _set_client_repo(
     name: str,
 ) -> None:
     """Point the client's cached repo to the correct owner/name."""
-    from shared.config import settings  # noqa: PLC0415
 
     # If the configured repo matches, use the cached repo
     if owner == settings.github_repo_owner and name == settings.github_repo_name:

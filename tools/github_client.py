@@ -7,7 +7,6 @@ opening PRs, posting comments) go through this module.
 from __future__ import annotations
 
 import base64
-import logging
 
 import structlog
 from github import Github, GithubException

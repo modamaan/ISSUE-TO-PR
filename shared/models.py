@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 from shared.verdict import Severity, Verdict
 
-
 # ── Issue models ──────────────────────────────────────────────────────────────
 
-class IssueType(str, Enum):
+class IssueType(StrEnum):
     BUG_FIX = "bug_fix"
     FEATURE = "feature"
     REFACTOR = "refactor"
