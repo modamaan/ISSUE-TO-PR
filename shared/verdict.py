@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     """Finding severity levels (OWASP-aligned)."""
 
     CRITICAL = "CRITICAL"
@@ -30,7 +30,7 @@ class Severity(str, Enum):
         return self in (Severity.CRITICAL,)
 
 
-class Verdict(str, Enum):
+class Verdict(StrEnum):
     """Overall verdict emitted by each agent."""
 
     PASS = "PASS"     # No issues found — proceed

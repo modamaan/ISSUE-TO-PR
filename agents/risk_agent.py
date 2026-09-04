@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import structlog
 
-from shared.models import Finding, RiskScore, ScanResult
+from shared.models import RiskScore, ScanResult
 from tools.risk_scorer import aggregate_findings_from_results, compute_risk_score
 
 log = structlog.get_logger(__name__)

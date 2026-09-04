@@ -104,18 +104,20 @@ async def github_issue_webhook(
         )
 
     # 5. If a label filter is configured, enforce it
-    if settings.github_issue_label:
-        if settings.github_issue_label not in payload.issue.label_names:
-            log.info(
-                "issue_skipped_no_label",
-                issue=payload.issue.number,
-                required_label=settings.github_issue_label,
-                present_labels=payload.issue.label_names,
-            )
-            return WebhookResponse(
-                accepted=False,
-                message=f"Issue does not have required label '{settings.github_issue_label}'",
-            )
+    if (
+        settings.github_issue_label
+        and settings.github_issue_label not in payload.issue.label_names
+    ):
+        log.info(
+            "issue_skipped_no_label",
+            issue=payload.issue.number,
+            required_label=settings.github_issue_label,
+            present_labels=payload.issue.label_names,
+        )
+        return WebhookResponse(
+            accepted=False,
+            message=f"Issue does not have required label '{settings.github_issue_label}'",
+        )
 
     # 6. Enqueue Celery task
     log.info(

@@ -5,8 +5,6 @@ from __future__ import annotations
 import hashlib
 import hmac
 
-import pytest
-
 from api.verifier import verify_signature
 
 
@@ -76,6 +74,7 @@ class TestVerifySignature:
     def test_constant_time_comparison(self):
         """Verify we use compare_digest (not ==) — checked by inspecting code."""
         import inspect  # noqa: PLC0415
+
         from api import verifier  # noqa: PLC0415
 
         source = inspect.getsource(verifier)

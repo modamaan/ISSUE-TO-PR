@@ -6,7 +6,6 @@ Clones the branch to a temp directory and runs tools locally.
 
 from __future__ import annotations
 
-import os
 import shutil
 import tempfile
 from pathlib import Path
